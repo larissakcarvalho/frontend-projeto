@@ -1,53 +1,77 @@
 # Digital Store
 
-Loja virtual demonstrativa criada com React e Vite, com layout responsivo para desktop e dispositivos móveis.
+Loja virtual demonstrativa desenvolvida com React e Vite, com layout adaptável para computadores e dispositivos móveis.
 
-## Projeto
+## Links do projeto
 
-- [Documentação oficial](https://github.com/digitalcollegebr/projeto-digital-store)
-- [Design no Figma](https://www.figma.com/design/cfb4F7ZXMFQmvmTn3PKI4z/DRIP-STORE---DIGITAL-COLLEGE?node-id=22-30)
+- **Aplicação publicada:** [frontend-projeto-scne.vercel.app](https://frontend-projeto-scne.vercel.app)
+- **Repositório:** [larissakcarvalho/frontend-projeto](https://github.com/larissakcarvalho/frontend-projeto)
+- **Pull request da entrega:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado na branch `main`.
+- **Ajuste de rotas para publicação:** [PR #3](https://github.com/larissakcarvalho/frontend-projeto/pull/3) — mesclado na branch `main`.
+- **Documentação-base:** [projeto-digital-store](https://github.com/digitalcollegebr/projeto-digital-store)
+- **Referência visual:** [Figma — Drip Store](https://www.figma.com/design/cfb4F7ZXMFQmvmTn3PKI4z/DRIP-STORE---DIGITAL-COLLEGE?node-id=22-30)
 
 ## Requisitos
 
-- Node.js 20.19+ ou 22.12+
+- Node.js 20.19 ou superior, ou Node.js 22.12 ou superior
 - npm
 
-## Como executar
+## Como instalar e executar
 
-```bash
-npm install
-npm run dev
-```
+1. Clone o repositório e acesse a pasta do projeto:
 
-Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:5173`).
+   ```bash
+   git clone https://github.com/larissakcarvalho/frontend-projeto.git
+   cd frontend-projeto
+   ```
+
+2. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Abra no navegador o endereço informado pelo Vite, normalmente `http://localhost:5173`.
 
 ## Páginas e funcionalidades
 
-- Início (`/`): destaques, categorias, produtos selecionados e formulário de novidades.
-- Produtos (`/products`): catálogo com busca (`?filter=`), filtros combináveis por categoria e faixa de preço, e ordenação por preço ou avaliação. `/produtos` também funciona.
-- Produto (`/product/:id`): detalhes, galeria navegável, seleção de tamanho e cor, quantidade e inclusão na sacola. `/produto/:id` também funciona.
-- Sacola: visualização dos itens, alteração de quantidades, subtotal e fluxo demonstrativo de compra.
-- Navegação responsiva com menu móvel e busca acessível em telas pequenas.
+- **Início (`/`):** produtos em destaque, coleções, benefícios e formulário de novidades.
+- **Produtos (`/products` ou `/produtos`):** catálogo, busca por `?filter=`, filtros por categoria e faixa de preço e ordenação.
+- **Detalhes do produto (`/product/:id` ou `/produto/:id`):** galeria, seleção de tamanho e cor, quantidade e botão de compra.
+- **Sacola:** itens adicionados, alteração de quantidades e subtotal.
+- **Navegação adaptável:** menu e busca preparados para dispositivos móveis.
 
-Os produtos são dados locais em `src/data/products.js`. Imagens e tipografia são carregadas de serviços externos; por isso, precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
+O catálogo utiliza dados locais definidos em `src/data/products.js`. As imagens dos produtos e as fontes tipográficas são carregadas de serviços externos e requerem conexão com a internet. A aplicação não integra API, autenticação ou processamento real de pagamentos; cadastro, login e compra são demonstrativos.
 
-## Entrega
+## Estrutura do código
 
-Status da entrega:
-
-- **Integrantes:** Larissa Kelly de Carvalho.
-- **Repositório no GitHub:** [frontend-projeto](https://github.com/larissakcarvalho/frontend-projeto).
-- **Deploy (Vercel):** [frontend-projeto-scne.vercel.app](https://frontend-projeto-scne.vercel.app).
-- **Pull request:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado em `main`.
-- **Prazo informado no enunciado:** 20/11/2026.
-
-## Publicação
-
-O projeto pode ser publicado em uma plataforma compatível com Vite, como Vercel ou Netlify. Configure o comando de build como `npm run build` e o diretório de saída como `dist`. Como a aplicação usa rotas do lado do cliente, configure o provedor para redirecionar as rotas não encontradas para `index.html`.
+- `src/components/`: componentes compartilhados, como cabeçalho, logo, galeria, filtros e cartões de produtos.
+- `src/pages/`: páginas da loja e o layout comum entre elas.
+- `src/data/`: dados locais e funções auxiliares do catálogo.
+- `public/` e `src/assets/`: ícones e imagens utilizados pela aplicação.
 
 ## Verificações
+
+Execute o analisador estático e a compilação de produção:
 
 ```bash
 npm run lint
 npm run build
 ```
+
+Para visualizar localmente a compilação gerada:
+
+```bash
+npm run preview
+```
+
+## Entrega
+
+- **Integrante:** Larissa Kelly de Carvalho.
+- **Prazo informado:** 20/11/2026.

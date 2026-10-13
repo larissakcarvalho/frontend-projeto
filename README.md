@@ -33,12 +33,12 @@ Os produtos são dados locais em `src/data/products.js`. Imagens e tipografia s�
 
 ## Entrega
 
-Preencha os dados abaixo antes de enviar o projeto:
+Status da entrega:
 
 - **Integrantes:** Larissa Kelly de Carvalho.
 - **Repositório no GitHub:** [frontend-projeto](https://github.com/larissakcarvalho/frontend-projeto).
 - **Deploy (Vercel, Netlify ou similar):** link pendente de publicação.
-- **Pull request:** link pendente de criação no repositório escolhido.
+- **Pull request:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado em `main`.
 - **Prazo informado no enunciado:** 20/11/2026.
 
 ## Publicação

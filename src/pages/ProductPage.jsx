@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { formatPrice, products } from '../data/products'
+import Gallery from '../components/Gallery.jsx'
 import Icon from '../components/Icon.jsx'
 import ProductGrid from '../components/ProductGrid.jsx'
 
@@ -10,11 +11,11 @@ export default function ProductPage({ product, navigate, addToCart, setNotice })
   const [quantity, setQuantity] = useState(1)
   const [sizeError, setSizeError] = useState(false)
   const similarProducts = products.filter((item) => item.id !== product.id && item.category === product.category).slice(0, 4)
-  const galleryImages = [
-    { label: 'Imagem completa', className: 'gallery-image-full' },
-    { label: 'Enquadramento à esquerda', className: 'gallery-image-detail' },
-    { label: 'Enquadramento à direita', className: 'gallery-image-side' },
-  ]
+  const galleryImages = (product.images?.length ? product.images : [product.image])
+    .map((image, index) => ({
+      src: image,
+      alt: `${product.name} — imagem ${index + 1}`,
+    }))
 
   const selectImage = (index) => {
     setActiveImage(Math.max(0, Math.min(galleryImages.length - 1, index)))
@@ -39,44 +40,18 @@ export default function ProductPage({ product, navigate, addToCart, setNotice })
           <span>{product.name}</span>
         </div>
         <div className="product-detail-grid">
-          <div className="product-gallery" role="group" aria-label={`Galeria de imagens: ${product.name}`}>
-            <div className="product-main-image">
-              <span className="product-image-label">{product.category}</span>
-              <img
-                className={galleryImages[activeImage].className}
-                src={product.image}
-                alt={`${product.name} — ${galleryImages[activeImage].label}`}
-              />
-              <button
-                type="button"
-                className="gallery-arrow gallery-arrow-previous"
-                aria-label="Imagem anterior"
-                disabled={activeImage === 0}
-                onClick={() => selectImage(activeImage - 1)}
-              >‹</button>
-              <button
-                type="button"
-                className="gallery-arrow gallery-arrow-next"
-                aria-label="Próxima imagem"
-                disabled={activeImage === galleryImages.length - 1}
-                onClick={() => selectImage(activeImage + 1)}
-              >›</button>
-            </div>
-            <div className="gallery-thumbnails" aria-label="Miniaturas do produto">
-              {galleryImages.map((image, index) => (
-                <button
-                  key={image.className}
-                  type="button"
-                  className={`thumbnail ${activeImage === index ? 'active' : ''}`}
-                  aria-label={image.label}
-                  aria-pressed={activeImage === index}
-                  onClick={() => selectImage(index)}
-                >
-                  <img className={image.className} src={product.image} alt="" />
-                </button>
-              ))}
-            </div>
-          </div>
+          <Gallery
+            images={galleryImages}
+            activeIndex={activeImage}
+            onChange={selectImage}
+            ariaLabel={`Galeria de imagens: ${product.name}`}
+            className="product-gallery"
+            imageContainerClassName="product-main-image"
+            controlsClassName="product-gallery-controls"
+            showThumbnails
+          >
+            <span className="product-image-label">{product.category}</span>
+          </Gallery>
           <div className="product-info">
             <span className="eyebrow">{product.category} / {product.type}</span>
             <h1>{product.name}</h1>

@@ -29,7 +29,7 @@ Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:
 - Sacola: visualização dos itens, alteração de quantidades, subtotal e fluxo demonstrativo de compra.
 - Navegação responsiva com menu móvel e busca acessível em telas pequenas.
 
-Os produtos são dados locais em `src/data/products.js`. Imagens e tipografia são carregadas de serviços externos; por isso, precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
+Os produtos são dados locais em `src/data/products.js`. Banners, coleções e imagens de alguns produtos usam arquivos locais em `public/`; as imagens restantes e a tipografia vêm de serviços externos e precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
 
 ## Entrega
 

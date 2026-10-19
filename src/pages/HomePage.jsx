@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { products } from '../data/products'
 import Icon from '../components/Icon.jsx'
+import Gallery from '../components/Gallery.jsx'
 import ProductGrid from '../components/ProductGrid.jsx'
 
 const heroSlides = [
@@ -17,7 +18,6 @@ const heroSlides = [
 export default function HomePage({ navigate, collectionLink, addToCart }) {
   const featured = products
   const [heroSlide, setHeroSlide] = useState(0)
-  const activeHeroSlide = heroSlides[heroSlide]
 
   return (
     <>
@@ -35,27 +35,21 @@ export default function HomePage({ navigate, collectionLink, addToCart }) {
           </div>
         </div>
         <div className="hero-art" aria-label="Destaques da coleção">
-          <div className="hero-circle" />
-          <span className="hero-caption">NOVA COLEÇÃO<br /><strong>SPRING / 26</strong></span>
-          <img src={activeHeroSlide.image} alt={activeHeroSlide.label} />
-          <div className="hero-product-tag"><span>DESTAQUE DA COLEÇÃO</span><strong>Do seu jeito.</strong></div>
-          <span className="hero-number">0{heroSlide + 1}</span>
-          <div className="hero-gallery-controls" aria-label="Controles do destaque">
-            <button type="button" aria-label="Destaque anterior" disabled={heroSlide === 0} onClick={() => setHeroSlide(heroSlide - 1)}>‹</button>
-            <button type="button" aria-label="Próximo destaque" disabled={heroSlide === heroSlides.length - 1} onClick={() => setHeroSlide(heroSlide + 1)}>›</button>
-          </div>
-        </div>
-        <div className="hero-dots" aria-label="Selecionar destaque da coleção">
-          {heroSlides.map((slide, index) => (
-            <button
-              key={slide.image}
-              type="button"
-              className={heroSlide === index ? 'selected' : ''}
-              aria-label={`Exibir: ${slide.label}`}
-              aria-current={heroSlide === index ? 'true' : undefined}
-              onClick={() => setHeroSlide(index)}
-            />
-          ))}
+          <Gallery
+            images={heroSlides.map((slide) => ({ src: slide.image, alt: slide.label }))}
+            activeIndex={heroSlide}
+            onChange={setHeroSlide}
+            ariaLabel="Destaques da coleção"
+            className="hero-gallery"
+            imageContainerClassName="hero-gallery-stage"
+            controlsClassName="hero-gallery-controls"
+            showIndicators
+          >
+            <div className="hero-circle" />
+            <span className="hero-caption">NOVA COLEÇÃO<br /><strong>SPRING / 26</strong></span>
+            <div className="hero-product-tag"><span>DESTAQUE DA COLEÇÃO</span><strong>Do seu jeito.</strong></div>
+            <span className="hero-number">0{heroSlide + 1}</span>
+          </Gallery>
         </div>
       </section>
 

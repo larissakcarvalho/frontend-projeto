@@ -5,8 +5,8 @@ import ProductGrid from '../components/ProductGrid.jsx'
 
 const priceOptions = [
   { label: 'Até R$ 200', value: '0-200', min: 0, max: 200 },
-  { label: 'R$ 200 a R$ 400', value: '200-400', min: 200, max: 400 },
-  { label: 'Acima de R$ 400', value: '400+', min: 400, max: Infinity },
+  { label: 'R$ 200 a R$ 400', value: '200-400', min: 200, max: 400, minExclusive: true },
+  { label: 'Acima de R$ 400', value: '400+', min: 400, max: Infinity, minExclusive: true },
 ]
 
 export default function CatalogPage({ products, selectedCategory, searchTerm, navigate, collectionLink }) {
@@ -23,7 +23,10 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
       const matchesSearch = !normalizedSearch || normalizeText(`${product.name} ${product.category} ${product.type}`).includes(normalizedSearch)
       const matchesPrice = priceRanges.length === 0 || priceRanges.some((range) => {
         const option = priceOptions.find((priceOption) => priceOption.value === range)
-        return option && product.price >= option.min && product.price <= option.max
+        const aboveMinimum = option?.minExclusive
+          ? product.price > option.min
+          : option && product.price >= option.min
+        return Boolean(option && aboveMinimum && product.price <= option.max)
       })
       return matchesCategory && matchesSearch && matchesPrice
     })

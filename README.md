@@ -5,7 +5,7 @@ Loja virtual demonstrativa criada com React e Vite, com layout responsivo para d
 ## Projeto
 
 - [Documentação oficial](https://github.com/digitalcollegebr/projeto-digital-store)
-- [Design no Figma](https://www.figma.com/design/cfb4F7ZXMFQmvmTn3PKI4z/DRIP-STORE---DIGITAL-COLLEGE?node-id=22-30)
+- [Design no Figma](https://www.figma.com/design/nUk0ihM3x4u8JQtxUoAEJf/DRIP-STORE---DIGITAL-COLLEGE--Copy-?node-id=22-30&p=f)
 
 ## Requisitos
 
@@ -23,13 +23,17 @@ Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:
 
 ## Páginas e funcionalidades
 
-- Início (`/`): destaques, categorias, produtos selecionados e formulário de novidades.
+- Início (`/`): carrossel com os oito banners da coleção, categorias, oito produtos em destaque e formulário de novidades.
 - Produtos (`/products`): catálogo com busca (`?filter=`), filtros combináveis por categoria e faixa de preço, e ordenação por preço ou avaliação. `/produtos` também funciona.
 - Produto (`/product/:id`): detalhes, galeria navegável, seleção de tamanho e cor, quantidade e inclusão na sacola. `/produto/:id` também funciona.
 - Sacola: visualização dos itens, alteração de quantidades, subtotal e fluxo demonstrativo de compra.
 - Navegação responsiva com menu móvel e busca acessível em telas pequenas.
 
-Os produtos são dados locais em `src/data/products.js`. Imagens e tipografia são carregadas de serviços externos; por isso, precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
+Os produtos são dados locais em `src/data/products.js`. Banners, coleções e imagens de alguns produtos usam arquivos locais em `public/`; as imagens restantes e a tipografia vêm de serviços externos e precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
+
+## Organização dos componentes
+
+O layout compartilhado usa `Layout`, `Header`, `Logo` e `Footer`. As páginas reutilizam `Section`, `ProductListing`/`ProductCard`, `Gallery`, `FilterGroup`, `ProductOptions` e `BuyBox` para manter a interface consistente entre início, catálogo e detalhes do produto.
 
 ## Entrega
 
@@ -39,6 +43,7 @@ Status da entrega:
 - **Repositório no GitHub:** [frontend-projeto](https://github.com/larissakcarvalho/frontend-projeto).
 - **Deploy (Vercel):** [frontend-projeto-scne.vercel.app](https://frontend-projeto-scne.vercel.app).
 - **Pull request:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado em `main`.
+- **Atualizações atuais:** [PR #5 — Organiza o código e atualiza a documentação do projeto](https://github.com/larissakcarvalho/frontend-projeto/pull/5) — aberto para revisão.
 - **Prazo informado no enunciado:** 20/11/2026.
 
 ## Publicação

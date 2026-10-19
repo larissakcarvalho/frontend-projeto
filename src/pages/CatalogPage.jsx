@@ -58,7 +58,13 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
         <span className="results-count">{filteredProducts.length} produtos</span>
       </div>
       <div className="catalog-toolbar">
-        <button type="button" className="filter-toggle" onClick={() => setMobileFilters(!mobileFilters)}>
+        <button
+          type="button"
+          className="filter-toggle"
+          aria-expanded={mobileFilters}
+          aria-controls="catalog-filters"
+          onClick={() => setMobileFilters(!mobileFilters)}
+        >
           <Icon name="menu" size={18} /> Categorias
         </button>
         <label className="sort-control mobile-sort-control">
@@ -72,7 +78,7 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
         </label>
       </div>
       <div className="catalog-layout">
-        <aside className={`category-sidebar ${mobileFilters ? 'filters-open' : ''}`}>
+        <aside id="catalog-filters" className={`category-sidebar ${mobileFilters ? 'filters-open' : ''}`}>
           <label className="sort-control">
             <span>Ordenar por</span>
             <select value={sortBy} onChange={(event) => setSortBy(event.target.value)} aria-label="Ordenar produtos">
@@ -92,7 +98,10 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
                   name="product-category"
                   value={category}
                   checked={selectedCategory === category}
-                  onChange={() => navigate(null, collectionLink(category))}
+                  onChange={() => {
+                    setMobileFilters(false)
+                    navigate(null, collectionLink(category))
+                  }}
                 />
                 <span className="filter-category-name">{category}</span>
                 <span className="filter-count">{category === 'Todos' ? products.length : products.filter((product) => product.category === category || product.type === category).length}</span>

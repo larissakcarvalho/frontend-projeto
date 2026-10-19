@@ -12,8 +12,8 @@ export default function ProductPage({ product, navigate, addToCart, setNotice })
   const similarProducts = products.filter((item) => item.id !== product.id && item.category === product.category).slice(0, 4)
   const galleryImages = [
     { label: 'Imagem completa', className: 'gallery-image-full' },
-    { label: 'Detalhe aproximado', className: 'gallery-image-detail' },
-    { label: 'Vista lateral', className: 'gallery-image-side' },
+    { label: 'Enquadramento à esquerda', className: 'gallery-image-detail' },
+    { label: 'Enquadramento à direita', className: 'gallery-image-side' },
   ]
 
   const selectImage = (index) => {
@@ -26,7 +26,7 @@ export default function ProductPage({ product, navigate, addToCart, setNotice })
       setSizeError(true)
       return
     }
-    for (let index = 0; index < quantity; index += 1) addToCart(product, selectedSize, selectedColor)
+    addToCart(product, selectedSize, selectedColor, quantity)
     setSizeError(false)
   }
 
@@ -39,7 +39,7 @@ export default function ProductPage({ product, navigate, addToCart, setNotice })
           <span>{product.name}</span>
         </div>
         <div className="product-detail-grid">
-          <div className="product-gallery">
+          <div className="product-gallery" role="group" aria-label={`Galeria de imagens: ${product.name}`}>
             <div className="product-main-image">
               <span className="product-image-label">{product.category}</span>
               <img

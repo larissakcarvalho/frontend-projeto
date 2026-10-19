@@ -31,6 +31,10 @@ Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:
 
 Os produtos são dados locais em `src/data/products.js`. Banners, coleções e imagens de alguns produtos usam arquivos locais em `public/`; as imagens restantes e a tipografia vêm de serviços externos e precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
 
+## Organização dos componentes
+
+O layout compartilhado usa `Layout`, `Header`, `Logo` e `Footer`. As páginas reutilizam `Section`, `ProductListing`/`ProductCard`, `Gallery`, `FilterGroup`, `ProductOptions` e `BuyBox` para manter a interface consistente entre início, catálogo e detalhes do produto.
+
 ## Entrega
 
 Status da entrega:

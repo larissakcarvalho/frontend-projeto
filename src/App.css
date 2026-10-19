@@ -112,7 +112,7 @@
 
 .account-link {
   color: #464646;
-  font-size: 12px;
+  font-size: 16px;
   white-space: nowrap;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -126,13 +126,13 @@
 
 .account-login {
   display: grid;
-  width: 78px;
-  height: 38px;
+  width: 114px;
+  height: 40px;
   place-items: center;
   border-radius: 4px;
   background: var(--accent);
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -417,6 +417,15 @@
   background: #a90d4e;
 }
 
+.button-warning {
+  background: var(--warning);
+  color: #fff;
+}
+
+.button-warning:hover {
+  background: #e39500;
+}
+
 .hero-copy > .button {
   margin-top: 24px;
 }
@@ -515,6 +524,38 @@
   object-fit: cover;
 }
 
+.gallery-slide {
+  animation: gallery-slide-in .24s ease both;
+}
+
+@keyframes gallery-slide-in {
+  from {
+    opacity: .65;
+    transform: translateX(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.gallery-slide-previous {
+  animation-name: gallery-slide-in-previous;
+}
+
+@keyframes gallery-slide-in-previous {
+  from {
+    opacity: .65;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .hero-caption {
   position: absolute;
   z-index: 2;
@@ -592,6 +633,12 @@
 .hero-gallery-controls button:disabled {
   opacity: .4;
   cursor: not-allowed;
+}
+
+.hero-gallery-controls img,
+.product-gallery-controls img {
+  width: 18px;
+  height: 18px;
 }
 
 .hero-dots {
@@ -1280,12 +1327,17 @@
 .filter-group {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.filter-group > strong {
+.filter-group legend {
   margin-bottom: 8px;
   color: #474747;
   font-size: 14px;
+  font-weight: 700;
 }
 
 .filter-group > label {
@@ -1305,8 +1357,8 @@
 }
 
 .filter-group > label > input {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   margin: 0;
   accent-color: var(--accent);
 }
@@ -1344,6 +1396,21 @@
 .catalog-results .product-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 27px 16px;
+}
+
+.catalog-layout > .catalog-results {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.catalog-results .section-heading {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.catalog-results .section-heading h2 {
+  font-size: 20px;
 }
 
 .catalog-results .product-card-image {
@@ -1489,7 +1556,7 @@
 
 .product-sku {
   color: #99938c;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: .07em;
 }
 
@@ -1504,6 +1571,23 @@
 
 .rating-line strong {
   color: #282828;
+}
+
+.rating-score {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: var(--warning);
+  color: #fff;
+  font-size: 14px;
+}
+
+.rating-score img {
+  width: 13px;
+  height: 13px;
 }
 
 .stars {
@@ -1529,7 +1613,7 @@
 
 .detail-price > strong {
   color: #222;
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
   letter-spacing: -.035em;
 }
@@ -1589,8 +1673,8 @@
 }
 
 .size-options button {
-  min-width: 39px;
-  height: 38px;
+  min-width: 46px;
+  height: 46px;
   padding: 0 8px;
   border: 1px solid #e0ddda;
   border-radius: 3px;
@@ -1598,7 +1682,7 @@
   color: #403d39;
   cursor: pointer;
   font: inherit;
-  font-size: 10px;
+  font-size: 24px;
 }
 
 .size-options button:hover,

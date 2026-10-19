@@ -60,9 +60,9 @@ export default function HomePage({ navigate, collectionLink, addToCart }) {
           <a className="text-link" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>Ver todas <Icon name="arrow" size={17} /></a>
         </div>
         <div className="category-grid">
-          <CategoryTile title="Tênis" note="Para ir mais longe" image={products[1].image} href={collectionLink('Tênis')} navigate={navigate} />
-          <CategoryTile title="Casual" note="Conforto sem esforço" image={products[5].image} href={collectionLink('Casual')} navigate={navigate} />
-          <CategoryTile title="Acessórios" note="Detalhes que fazem" image={products[6].image} href={collectionLink('Acessórios')} navigate={navigate} />
+          <CategoryTile title="Camisetas" note="Novos lançamentos" image="/collection-1.png" href={collectionLink('Camisetas')} navigate={navigate} />
+          <CategoryTile title="Tênis" note="Coleção em destaque" image="/collection-2.png" href={collectionLink('Tênis')} navigate={navigate} />
+          <CategoryTile title="Acessórios" note="Complete seu estilo" image="/collection-3.png" href={collectionLink('Acessórios')} navigate={navigate} />
         </div>
       </section>
 

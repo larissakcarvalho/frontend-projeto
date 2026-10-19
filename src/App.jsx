@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { formatPrice, products } from './data/products'
+import logoHeader from '../assets/logo-header.svg'
+import miniCart from '../assets/mini-cart.svg'
 import CatalogPage from './pages/CatalogPage.jsx'
 import Footer from './components/Footer.jsx'
 import HomePage from './pages/HomePage.jsx'
@@ -65,18 +67,18 @@ function App() {
     navigate(null, `/products${params.size ? `?${params.toString()}` : ''}`)
   }
 
-  const addToCart = (product, size, color) => {
+  const addToCart = (product, size, color, quantity = 1) => {
     setCartItems((items) => {
       const key = `${product.id}-${size || 'unico'}-${color || ''}`
       const existingItem = items.find((item) => item.key === key)
       if (existingItem) {
         return items.map((item) =>
-          item.key === key ? { ...item, quantity: item.quantity + 1 } : item,
+          item.key === key ? { ...item, quantity: item.quantity + quantity } : item,
         )
       }
-      return [...items, { key, product, size, color, quantity: 1 }]
+      return [...items, { key, product, size, color, quantity }]
     })
-    setNotice(`${product.name} adicionado à sacola`)
+    setNotice(`${product.name} adicionado à sacola${quantity > 1 ? ` (${quantity} unidades)` : ''}`)
     setCartOpen(true)
   }
 
@@ -116,8 +118,7 @@ function App() {
             <Icon name={menuOpen ? 'close' : 'menu'} />
           </button>
           <a className="wordmark" href="/" onClick={(event) => navigate(event, '/')}>
-            <span className="brand-symbol">D</span>
-            <span>digital<span className="wordmark-accent">store</span><small>.</small></span>
+            <img src={logoHeader} alt="Digital Store" />
           </a>
 
           <form className="search-form" role="search" onSubmit={submitSearch}>
@@ -161,7 +162,7 @@ function App() {
                 aria-expanded={cartOpen}
                 onClick={() => setCartOpen(!cartOpen)}
               >
-                <Icon name="cart" />
+                <img src={miniCart} alt="" aria-hidden="true" />
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
               </button>
               {cartOpen && (

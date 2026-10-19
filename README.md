@@ -23,7 +23,7 @@ Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:
 
 ## Páginas e funcionalidades
 
-- Início (`/`): destaques, categorias, produtos selecionados e formulário de novidades.
+- Início (`/`): carrossel com os oito banners da coleção, categorias, oito produtos em destaque e formulário de novidades.
 - Produtos (`/products`): catálogo com busca (`?filter=`), filtros combináveis por categoria e faixa de preço, e ordenação por preço ou avaliação. `/produtos` também funciona.
 - Produto (`/product/:id`): detalhes, galeria navegável, seleção de tamanho e cor, quantidade e inclusão na sacola. `/produto/:id` também funciona.
 - Sacola: visualização dos itens, alteração de quantidades, subtotal e fluxo demonstrativo de compra.

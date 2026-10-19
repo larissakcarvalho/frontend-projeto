@@ -3,10 +3,21 @@ import { products } from '../data/products'
 import Icon from '../components/Icon.jsx'
 import ProductGrid from '../components/ProductGrid.jsx'
 
+const heroSlides = [
+  { image: '/home-slide-1.jpeg', label: 'Sapato casual azul da coleção' },
+  { image: '/home-slide-2.jpeg', label: 'Chuteiras azuis em destaque' },
+  { image: '/home-slide-3.jpeg', label: 'Tênis esportivos em tons neutros' },
+  { image: '/home-slide-4.jpeg', label: 'Tênis preto e branco da coleção' },
+  { image: '/home-slide-5.jpeg', label: 'Tênis esportivos em tons azuis' },
+  { image: '/home-slide-6.jpeg', label: 'Tênis casual marrom' },
+  { image: '/home-slide-7.jpeg', label: 'Tênis branco com detalhes laranja' },
+  { image: '/home-slide-8.jpeg', label: 'Tênis de corrida vermelho' },
+]
+
 export default function HomePage({ navigate, collectionLink, addToCart }) {
   const featured = products
   const [heroSlide, setHeroSlide] = useState(0)
-  const heroProduct = featured[heroSlide]
+  const activeHeroSlide = heroSlides[heroSlide]
 
   return (
     <>
@@ -23,24 +34,24 @@ export default function HomePage({ navigate, collectionLink, addToCart }) {
             <span><strong>+2.000 pessoas</strong><br />já encontraram seu estilo</span>
           </div>
         </div>
-        <div className="hero-art" aria-label="Tênis esportivo em destaque">
+        <div className="hero-art" aria-label="Destaques da coleção">
           <div className="hero-circle" />
           <span className="hero-caption">NOVA COLEÇÃO<br /><strong>SPRING / 26</strong></span>
-          <img src={heroProduct.image} alt={heroProduct.name} />
-          <div className="hero-product-tag"><span>{heroProduct.name.toUpperCase()}</span><strong>Do seu jeito.</strong></div>
+          <img src={activeHeroSlide.image} alt={activeHeroSlide.label} />
+          <div className="hero-product-tag"><span>DESTAQUE DA COLEÇÃO</span><strong>Do seu jeito.</strong></div>
           <span className="hero-number">0{heroSlide + 1}</span>
           <div className="hero-gallery-controls" aria-label="Controles do destaque">
-            <button type="button" aria-label="Produto em destaque anterior" disabled={heroSlide === 0} onClick={() => setHeroSlide(heroSlide - 1)}>‹</button>
-            <button type="button" aria-label="Próximo produto em destaque" disabled={heroSlide === featured.length - 1} onClick={() => setHeroSlide(heroSlide + 1)}>›</button>
+            <button type="button" aria-label="Destaque anterior" disabled={heroSlide === 0} onClick={() => setHeroSlide(heroSlide - 1)}>‹</button>
+            <button type="button" aria-label="Próximo destaque" disabled={heroSlide === heroSlides.length - 1} onClick={() => setHeroSlide(heroSlide + 1)}>›</button>
           </div>
         </div>
-        <div className="hero-dots" aria-label="Selecionar produto em destaque">
-          {featured.map((product, index) => (
+        <div className="hero-dots" aria-label="Selecionar destaque da coleção">
+          {heroSlides.map((slide, index) => (
             <button
-              key={product.id}
+              key={slide.image}
               type="button"
               className={heroSlide === index ? 'selected' : ''}
-              aria-label={`Exibir ${product.name}`}
+              aria-label={`Exibir: ${slide.label}`}
               aria-current={heroSlide === index ? 'true' : undefined}
               onClick={() => setHeroSlide(index)}
             />

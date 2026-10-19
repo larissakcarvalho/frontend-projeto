@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 import { categories } from '../data/products'
+import FilterGroup from '../components/FilterGroup.jsx'
 import Icon from '../components/Icon.jsx'
-import ProductGrid from '../components/ProductGrid.jsx'
+import ProductListing from '../components/ProductListing.jsx'
+import Section from '../components/Section.jsx'
 
 const priceOptions = [
   { label: 'Até R$ 200', value: '0-200', min: 0, max: 200 },
@@ -58,7 +60,6 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
       </div>
       <div className="catalog-heading">
         <div><span className="eyebrow">ENCONTRE O SEU PRÓXIMO FAVORITO</span><h1>{heading}</h1></div>
-        <span className="results-count">{filteredProducts.length} produtos</span>
       </div>
       <div className="catalog-toolbar">
         <button
@@ -92,44 +93,39 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
             </select>
           </label>
           <h2>Filtrar por</h2>
-          <div className="filter-group">
-            <strong>Categoria</strong>
-            {categories.map((category) => (
-              <label key={category} className={selectedCategory === category ? 'selected' : ''}>
-                <input
-                  type="radio"
-                  name="product-category"
-                  value={category}
-                  checked={selectedCategory === category}
-                  onChange={() => {
-                    setMobileFilters(false)
-                    navigate(null, collectionLink(category))
-                  }}
-                />
-                <span className="filter-category-name">{category}</span>
-                <span className="filter-count">{category === 'Todos' ? products.length : products.filter((product) => product.category === category || product.type === category).length}</span>
-              </label>
-            ))}
-          </div>
-          <div className="filter-group price-filter-group">
-            <strong>Preço</strong>
-            {priceOptions.map((option) => (
-              <label key={option.value} className={priceRanges.includes(option.value) ? 'selected' : ''}>
-                <input
-                  type="checkbox"
-                  value={option.value}
-                  checked={priceRanges.includes(option.value)}
-                  onChange={() => togglePriceRange(option.value)}
-                />
-                <span className="filter-category-name">{option.label}</span>
-              </label>
-            ))}
-          </div>
+          <FilterGroup
+            title="Categoria"
+            inputType="radio"
+            name="product-category"
+            options={categories.map((category) => ({
+              text: category,
+              value: category,
+              count: category === 'Todos'
+                ? products.length
+                : products.filter((product) => product.category === category || product.type === category).length,
+            }))}
+            selectedValues={[selectedCategory]}
+            onChange={(category) => {
+              setMobileFilters(false)
+              navigate(null, collectionLink(category))
+            }}
+          />
+          <FilterGroup
+            title="Preço"
+            options={priceOptions.map(({ label, value }) => ({ text: label, value }))}
+            selectedValues={priceRanges}
+            onChange={togglePriceRange}
+            className="price-filter-group"
+          />
           <div className="filter-note"><span>Precisa de ajuda?</span><p>Escolha por categoria e encontre o que combina com você.</p></div>
         </aside>
-        <div className="catalog-results">
+        <Section
+          title={`${filteredProducts.length} produtos encontrados`}
+          titleAlign="left"
+          className="catalog-results"
+        >
           {filteredProducts.length ? (
-            <ProductGrid products={filteredProducts} navigate={navigate} />
+            <ProductListing products={filteredProducts} navigate={navigate} />
           ) : (
             <div className="no-results">
               <span className="eyebrow">NÃO ENCONTRAMOS</span>
@@ -138,7 +134,7 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
               <a className="button button-primary" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>Ver todos os produtos</a>
             </div>
           )}
-        </div>
+        </Section>
       </div>
     </section>
   )

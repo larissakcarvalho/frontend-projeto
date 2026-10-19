@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { products } from '../data/products'
 import Icon from '../components/Icon.jsx'
 import Gallery from '../components/Gallery.jsx'
-import ProductGrid from '../components/ProductGrid.jsx'
+import ProductListing from '../components/ProductListing.jsx'
+import Section from '../components/Section.jsx'
 
 const heroSlides = [
   { image: '/home-slide-1.jpeg', label: 'Sapato casual azul da coleção' },
@@ -59,25 +60,30 @@ export default function HomePage({ navigate, collectionLink, addToCart }) {
         <Benefit icon="plus" title="Parcele em até 10x" text="Sem juros no cartão" />
       </section>
 
-      <section className="categories-section section-wrap">
-        <div className="section-heading category-heading">
-          <div><span className="eyebrow">ESCOLHA O SEU ESTILO</span><h2>Coleções em destaque</h2></div>
-          <a className="text-link" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>Ver todas <Icon name="arrow" size={17} /></a>
-        </div>
+      <Section
+        title="Coleções em destaque"
+        titleAlign="center"
+        eyebrow="ESCOLHA O SEU ESTILO"
+        className="categories-section"
+        link={{ text: 'Ver todas', href: '/produtos' }}
+        navigate={navigate}
+      >
         <div className="category-grid">
           <CategoryTile title="Camisetas" note="Novos lançamentos" image="/collection-1.png" href={collectionLink('Camisetas')} navigate={navigate} />
           <CategoryTile title="Tênis" note="Coleção em destaque" image="/collection-2.png" href={collectionLink('Tênis')} navigate={navigate} />
           <CategoryTile title="Acessórios" note="Complete seu estilo" image="/collection-3.png" href={collectionLink('Acessórios')} navigate={navigate} />
         </div>
-      </section>
+      </Section>
 
-      <section className="featured-section section-wrap">
-        <div className="section-heading">
-          <div><span className="eyebrow">SELEÇÃO DA SEMANA</span><h2>Produtos em alta</h2></div>
-          <a className="text-link" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>Ver coleção completa <Icon name="arrow" size={17} /></a>
-        </div>
-        <ProductGrid products={featured} navigate={navigate} addToCart={addToCart} />
-      </section>
+      <Section
+        title="Produtos em alta"
+        eyebrow="SELEÇÃO DA SEMANA"
+        className="featured-section"
+        link={{ text: 'Ver coleção completa', href: '/produtos' }}
+        navigate={navigate}
+      >
+        <ProductListing products={featured} navigate={navigate} addToCart={addToCart} />
+      </Section>
 
       <section className="promo-banner section-wrap">
         <div className="promo-content">

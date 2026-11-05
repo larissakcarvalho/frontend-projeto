@@ -10,6 +10,8 @@ Loja virtual demonstrativa desenvolvida com React e Vite, com layout adaptável 
 - **Ajuste de rotas para publicação:** [PR #3](https://github.com/larissakcarvalho/frontend-projeto/pull/3) — mesclado na branch `main`.
 - **Organização do projeto e documentação:** [PR #5](https://github.com/larissakcarvalho/frontend-projeto/pull/5) — mesclado na branch `main`.
 - **Integração com APIs e atualização visual:** [PR #6](https://github.com/larissakcarvalho/frontend-projeto/pull/6) — mesclado na branch `main`; publicação atualizada.
+- **Finalização da documentação:** [PR #8](https://github.com/larissakcarvalho/frontend-projeto/pull/8) — mesclado na branch `main`.
+- **Deploy:** configurado em um único projeto Vercel, [frontend-projeto-scne](https://vercel.com/larissakcarvalho/frontend-projeto-scne), conectado à branch `main`. A aplicação publicada e os previews de PR usam esse projeto.
 - **Documentação-base:** [projeto-digital-store](https://github.com/digitalcollegebr/projeto-digital-store)
 - **Referência visual:** [Figma — Drip Store](https://www.figma.com/design/cfb4F7ZXMFQmvmTn3PKI4z/DRIP-STORE---DIGITAL-COLLEGE?node-id=22-30)
 

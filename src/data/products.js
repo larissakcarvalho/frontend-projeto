@@ -20,8 +20,8 @@ export const products = [
     reviews: 128,
     colors: ['#e9e7e3', '#252525', '#8b684d'],
     sizes: [38, 39, 40, 41, 42, 43],
-    image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85',
+    image: '/produc-image-4.jpeg',
+    images: ['/produc-image-4.jpeg', '/product-thumb-3.jpeg', '/produc-image-2.jpeg'],
     description:
       'O clássico que acompanha qualquer caminho. Confortável, versátil e feito para entrar na sua rotina sem esforço.',
     badge: '25% OFF',
@@ -38,8 +38,8 @@ export const products = [
     reviews: 96,
     colors: ['#d5dfe7', '#e5c5bf', '#333333'],
     sizes: [37, 38, 39, 40, 41, 42],
-    image:
-      'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=85',
+    image: '/home-slide-8.jpeg',
+    images: ['/home-slide-8.jpeg', '/produc-image-5.jpeg', '/product-thumb-5.jpeg'],
     description:
       'Leveza e resposta a cada passo. Um tênis pensado para seus treinos, corridas e novos recordes.',
     badge: 'NOVO',
@@ -56,8 +56,8 @@ export const products = [
     reviews: 74,
     colors: ['#d9d2c7', '#393837'],
     sizes: [38, 39, 40, 41, 42, 43],
-    image:
-      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=85',
+    image: '/produc-image-2.jpeg',
+    images: ['/produc-image-2.jpeg', '/product-thumb-3.jpeg', '/produc-image-4.jpeg'],
     description:
       'Design urbano e acabamento premium para deixar seu visual pronto em qualquer ocasião.',
     badge: '',
@@ -74,8 +74,8 @@ export const products = [
     reviews: 53,
     colors: ['#dce4e7', '#d8c8bf'],
     sizes: [37, 38, 39, 40, 41, 42],
-    image:
-      'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=900&q=85',
+    image: '/produc-image-5.jpeg',
+    images: ['/produc-image-5.jpeg', '/home-slide-7.jpeg', '/product-thumb-5.jpeg'],
     description:
       'Amortecimento macio, visual contemporâneo e conforto para ir mais longe todos os dias.',
     badge: '15% OFF',
@@ -146,8 +146,8 @@ export const products = [
     reviews: 87,
     colors: ['#ded9d2', '#465c4d'],
     sizes: [38, 39, 40, 41, 42, 43],
-    image:
-      'https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=900&q=85',
+    image: '/produc-image-1.jpeg',
+    images: ['/produc-image-1.jpeg', '/product-thumb-1.jpeg', '/product-thumb-2.jpeg'],
     description:
       'Inspirado nas quadras e feito para a cidade. Uma silhueta retrô com conforto de hoje.',
     badge: '',

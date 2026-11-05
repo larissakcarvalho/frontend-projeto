@@ -69,7 +69,7 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
           aria-controls="catalog-filters"
           onClick={() => setMobileFilters(!mobileFilters)}
         >
-          <Icon name="menu" size={18} /> Categorias
+          <Icon name="filter" size={18} /> Filtrar
         </button>
         <label className="sort-control mobile-sort-control">
           <span>Ordenar por</span>
@@ -82,6 +82,14 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
         </label>
       </div>
       <div className="catalog-layout">
+        {mobileFilters && (
+          <button
+            type="button"
+            className="drawer-backdrop filter-backdrop"
+            aria-label="Fechar filtros"
+            onClick={() => setMobileFilters(false)}
+          />
+        )}
         <aside id="catalog-filters" className={`category-sidebar ${mobileFilters ? 'filters-open' : ''}`}>
           <label className="sort-control">
             <span>Ordenar por</span>
@@ -92,7 +100,12 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
               <option value="rating">Melhor avaliação</option>
             </select>
           </label>
-          <h2>Filtrar por</h2>
+          <div className="filter-heading">
+            <h2>Filtrar por</h2>
+            <button type="button" className="filters-close" aria-label="Fechar filtros" onClick={() => setMobileFilters(false)}>
+              <Icon name="close" size={20} />
+            </button>
+          </div>
           <FilterGroup
             title="Categoria"
             inputType="radio"
@@ -118,6 +131,7 @@ export default function CatalogPage({ products, selectedCategory, searchTerm, na
             className="price-filter-group"
           />
           <div className="filter-note"><span>Precisa de ajuda?</span><p>Escolha por categoria e encontre o que combina com você.</p></div>
+          <button type="button" className="button button-primary filter-apply" onClick={() => setMobileFilters(false)}>Aplicar filtros</button>
         </aside>
         <Section
           title={`${filteredProducts.length} produtos encontrados`}

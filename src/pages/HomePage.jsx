@@ -1,0 +1,151 @@
+import { useState } from 'react'
+import { products } from '../data/products'
+import Icon from '../components/Icon.jsx'
+import Gallery from '../components/Gallery.jsx'
+import ProductListing from '../components/ProductListing.jsx'
+import Section from '../components/Section.jsx'
+
+const heroSlides = [
+  { image: '/home-slide-1.jpeg', label: 'Sapato casual azul da coleção' },
+  { image: '/home-slide-2.jpeg', label: 'Chuteiras azuis em destaque' },
+  { image: '/home-slide-3.jpeg', label: 'Tênis esportivos em tons neutros' },
+  { image: '/home-slide-4.jpeg', label: 'Tênis preto e branco da coleção' },
+  { image: '/home-slide-5.jpeg', label: 'Tênis esportivos em tons azuis' },
+  { image: '/home-slide-6.jpeg', label: 'Tênis casual marrom' },
+  { image: '/home-slide-7.jpeg', label: 'Tênis branco com detalhes laranja' },
+  { image: '/home-slide-8.jpeg', label: 'Tênis de corrida vermelho' },
+]
+
+export default function HomePage({ navigate, collectionLink, addToCart }) {
+  const featured = products
+  const [heroSlide, setHeroSlide] = useState(0)
+
+  return (
+    <>
+      <section className="hero-section">
+        <div className="hero-copy">
+          <span className="eyebrow">ESTILO QUE ACOMPANHA VOCÊ</span>
+          <h1>Seu próximo<br /><span>passo começa aqui.</span></h1>
+          <p>Encontre o equilíbrio perfeito entre conforto, atitude e o seu jeito de viver.</p>
+          <a className="button button-primary" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>
+            Explorar coleção <Icon name="arrow" size={18} />
+          </a>
+          <div className="hero-proof">
+            <div className="proof-avatars" aria-hidden="true"><span>J</span><span>M</span><span>A</span></div>
+            <span><strong>+2.000 pessoas</strong><br />já encontraram seu estilo</span>
+          </div>
+        </div>
+        <div className="hero-art" aria-label="Destaques da coleção">
+          <Gallery
+            images={heroSlides.map((slide) => ({ src: slide.image, alt: slide.label }))}
+            activeIndex={heroSlide}
+            onChange={setHeroSlide}
+            ariaLabel="Destaques da coleção"
+            className="hero-gallery"
+            imageContainerClassName="hero-gallery-stage"
+            controlsClassName="hero-gallery-controls"
+            showIndicators
+          >
+            <div className="hero-circle" />
+            <span className="hero-caption">NOVA COLEÇÃO<br /><strong>SPRING / 26</strong></span>
+            <div className="hero-product-tag"><span>DESTAQUE DA COLEÇÃO</span><strong>Do seu jeito.</strong></div>
+            <span className="hero-number">0{heroSlide + 1}</span>
+          </Gallery>
+        </div>
+      </section>
+
+      <section className="benefits-strip" aria-label="Benefícios da loja">
+        <Benefit icon="truck" title="Frete grátis" text="Acima de R$ 299" />
+        <Benefit icon="return" title="Troca fácil" text="Até 30 dias" />
+        <Benefit icon="plus" title="Parcele em até 10x" text="Sem juros no cartão" />
+      </section>
+
+      <Section
+        title="Coleções em destaque"
+        titleAlign="center"
+        eyebrow="ESCOLHA O SEU ESTILO"
+        className="categories-section"
+        link={{ text: 'Ver todas', href: '/produtos' }}
+        navigate={navigate}
+      >
+        <div className="category-grid">
+          <CategoryTile title="Camisetas" note="Novos lançamentos" image="/collection-1.png" href={collectionLink('Camisetas')} navigate={navigate} />
+          <CategoryTile title="Tênis" note="Coleção em destaque" image="/collection-2.png" href={collectionLink('Tênis')} navigate={navigate} />
+          <CategoryTile title="Acessórios" note="Complete seu estilo" image="/collection-3.png" href={collectionLink('Acessórios')} navigate={navigate} />
+        </div>
+      </Section>
+
+      <Section
+        title="Produtos em alta"
+        eyebrow="SELEÇÃO DA SEMANA"
+        className="featured-section"
+        link={{ text: 'Ver coleção completa', href: '/produtos' }}
+        navigate={navigate}
+      >
+        <ProductListing products={featured} navigate={navigate} addToCart={addToCart} />
+      </Section>
+
+      <section className="promo-banner section-wrap">
+        <div className="promo-content">
+          <span className="eyebrow">SEU ESTILO, SEU MOMENTO</span>
+          <h2>Um clássico.<br />Mil possibilidades.</h2>
+          <p>Conheça peças que fazem parte da sua história — todos os dias.</p>
+          <a className="button button-light" href={collectionLink('Casual')} onClick={(event) => navigate(event, collectionLink('Casual'))}>Descobrir agora <Icon name="arrow" size={17} /></a>
+        </div>
+        <div className="promo-image">
+          <img src={products[2].image} alt="Tênis casual branco em fundo neutro" />
+          <span>FEITO PARA<br />O SEU CAMINHO</span>
+        </div>
+      </section>
+
+      <section className="newsletter-section">
+        <div>
+          <span className="eyebrow">FICA A DICA</span>
+          <h2>Novidades boas chegam por e-mail.</h2>
+          <p>Cadastre-se e receba novidades, lançamentos e condições especiais.</p>
+        </div>
+        <NewsletterForm />
+      </section>
+    </>
+  )
+}
+
+function Benefit({ icon, title, text }) {
+  return <div className="benefit"><span className="benefit-icon"><Icon name={icon} size={22} /></span><div><strong>{title}</strong><span>{text}</span></div></div>
+}
+
+function CategoryTile({ title, note, image, href, navigate }) {
+  return (
+    <a className="category-tile" href={href} onClick={(event) => navigate(event, href)}>
+      <img src={image} alt="" loading="lazy" />
+      <span className="category-tile-overlay" />
+      <span className="category-tile-copy"><small>{note}</small><strong>{title}</strong><span className="category-arrow"><Icon name="arrow" size={17} /></span></span>
+    </a>
+  )
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const submit = (event) => {
+    event.preventDefault()
+    if (!event.currentTarget.reportValidity()) return
+    setSubmitted(true)
+    setEmail('')
+  }
+
+  return (
+    <form className="newsletter-form" onSubmit={submit}>
+      {submitted ? (
+        <p className="newsletter-success" role="status">Pronto! Você receberá nossas novidades em breve.</p>
+      ) : (
+        <>
+          <label className="visually-hidden" htmlFor="newsletter-email">Seu melhor e-mail</label>
+          <input id="newsletter-email" type="email" placeholder="Seu melhor e-mail" value={email} onChange={(event) => setEmail(event.target.value)} required />
+          <button className="button button-primary" type="submit">Quero receber <Icon name="arrow" size={17} /></button>
+        </>
+      )}
+    </form>
+  )
+}

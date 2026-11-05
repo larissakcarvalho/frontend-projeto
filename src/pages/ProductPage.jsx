@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { products } from '../data/products'
 import BuyBox from '../components/BuyBox.jsx'
 import Gallery from '../components/Gallery.jsx'
 import Icon from '../components/Icon.jsx'
 import ProductListing from '../components/ProductListing.jsx'
 import Section from '../components/Section.jsx'
 
-export default function ProductPage({ product, navigate, addToCart, setNotice }) {
+export default function ProductPage({ product, products, navigate, addToCart, setNotice }) {
   const [selectedSize, setSelectedSize] = useState('')
   const [selectedColor, setSelectedColor] = useState(product.colors[0] || '')
   const [activeImage, setActiveImage] = useState(0)

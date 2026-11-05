@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { products } from './data/products'
+import { products as localProducts } from './data/products'
+import { fetchCatalogProducts } from './services/productApi'
 import CatalogPage from './pages/CatalogPage.jsx'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
@@ -10,6 +11,9 @@ import './App.css'
 
 function App() {
   const [route, setRoute] = useState(() => window.location.pathname + window.location.search)
+  const [products, setProducts] = useState(localProducts)
+  const [catalogState, setCatalogState] = useState({ status: 'loading' })
+  const [catalogAttempt, setCatalogAttempt] = useState(0)
   const [search, setSearch] = useState(() => {
     const params = new URLSearchParams(window.location.search)
     return params.get('filter') || params.get('q') || ''
@@ -17,6 +21,35 @@ function App() {
   const [cartItems, setCartItems] = useState([])
   const [cartOpen, setCartOpen] = useState(false)
   const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+    const controller = new AbortController()
+    let timedOut = false
+    const timeout = window.setTimeout(() => {
+      timedOut = true
+      controller.abort()
+    }, 12000)
+
+    fetchCatalogProducts(controller.signal)
+      .then(({ products: apiProducts, exchangeDate }) => {
+        setProducts([...localProducts, ...apiProducts])
+        setCatalogState({ status: 'api', count: apiProducts.length, exchangeDate })
+      })
+      .catch((error) => {
+        if (controller.signal.aborted && !timedOut) return
+        setProducts(localProducts)
+        setCatalogState({
+          status: 'fallback',
+          message: timedOut ? 'A conexão com o catálogo excedeu o tempo limite.' : error.message,
+        })
+      })
+      .finally(() => window.clearTimeout(timeout))
+
+    return () => {
+      window.clearTimeout(timeout)
+      controller.abort()
+    }
+  }, [catalogAttempt])
 
   useEffect(() => {
     const syncRoute = () => {
@@ -121,12 +154,13 @@ function App() {
     <ProductPage
       key={selectedProduct.id}
       product={selectedProduct}
+      products={products}
       navigate={navigate}
       addToCart={addToCart}
       setNotice={setNotice}
     />
   ) : routePath === '/' ? (
-    <HomePage navigate={navigate} collectionLink={collectionLink} addToCart={addToCart} />
+    <HomePage products={products} navigate={navigate} collectionLink={collectionLink} addToCart={addToCart} />
   ) : (
     <section className="not-found">
       <span className="eyebrow">OPS!</span>
@@ -144,6 +178,20 @@ function App() {
       overlayOpen={cartOpen}
       onDismissOverlay={() => setCartOpen(false)}
     >
+      <div className={`catalog-status catalog-status-${catalogState.status}`} role="status" aria-live="polite">
+        {catalogState.status === 'loading' && <span>Conectando ao catálogo de produtos...</span>}
+        {catalogState.status === 'api' && (
+          <span>
+            Catálogo atualizado: {catalogState.count} produtos da API. Preços convertidos para reais pela cotação de {catalogState.exchangeDate}.
+          </span>
+        )}
+        {catalogState.status === 'fallback' && (
+          <>
+            <span>Não foi possível carregar a API ({catalogState.message}). Exibindo o catálogo local de demonstração.</span>
+            <button type="button" onClick={() => setCatalogAttempt((attempt) => attempt + 1)}>Tentar novamente</button>
+          </>
+        )}
+      </div>
       {page}
     </Layout>
   )

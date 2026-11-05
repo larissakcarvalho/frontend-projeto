@@ -29,7 +29,7 @@ Abra no navegador o endereço indicado pelo Vite (normalmente `http://localhost:
 - Sacola: visualização dos itens, alteração de quantidades, subtotal e fluxo demonstrativo de compra.
 - Navegação responsiva com menu móvel e busca acessível em telas pequenas.
 
-Os produtos são dados locais em `src/data/products.js`. Banners, coleções e imagens de alguns produtos usam arquivos locais em `public/`; as imagens restantes e a tipografia vêm de serviços externos e precisam de conexão com a internet. Não há integração com API, autenticação ou processamento real de pagamentos.
+O catálogo combina os produtos locais de demonstração em `src/data/products.js` com produtos obtidos da [DummyJSON Products API](https://dummyjson.com/docs/products). Os preços recebidos em dólares são convertidos para reais usando a cotação mais recente da [Frankfurter API](https://frankfurter.dev/). Se qualquer serviço estiver indisponível, a loja mantém o catálogo local e permite tentar novamente. Banners, coleções e imagens de alguns produtos usam arquivos locais em `public/`; imagens remotas e a tipografia precisam de conexão com a internet. Não há autenticação nem processamento real de pagamentos.
 
 ## Organização dos componentes
 
@@ -44,6 +44,7 @@ Status da entrega:
 - **Deploy (Vercel):** [frontend-projeto-scne.vercel.app](https://frontend-projeto-scne.vercel.app).
 - **Pull request:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado em `main`.
 - **Atualizações atuais:** [PR #5 — Organiza o código e atualiza a documentação do projeto](https://github.com/larissakcarvalho/frontend-projeto/pull/5) — aberto para revisão.
+- A atualização de identidade visual e integração das APIs usa uma branch baseada no PR #5; o deploy de produção permanece no endereço acima e o preview de alterações depende dos checks automáticos do Vercel no pull request.
 - **Prazo informado no enunciado:** 20/11/2026.
 
 ## Publicação

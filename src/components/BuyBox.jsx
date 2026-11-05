@@ -22,7 +22,7 @@ export default function BuyBox({
       <p className="product-sku">REF: DS-{product.id.slice(-6).toUpperCase()}</p>
       <div className="rating-line">
         <span className="rating-score"><span>{product.rating.toFixed(1)}</span><img src={starIcon} alt="" /></span>
-        <span>({product.reviews} avaliações)</span>
+        {product.reviews != null && <span>({product.reviews} avaliações)</span>}
       </div>
       <p className="detail-description">{product.description}</p>
       <div className="detail-price">

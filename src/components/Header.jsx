@@ -139,7 +139,14 @@ export default function Header({
             </div>
           </div>
         </div>
+        {menuOpen && <button type="button" className="menu-backdrop" aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />}
         <nav className={`main-nav ${menuOpen ? 'nav-open' : ''}`} aria-label="Navegação principal">
+          <div className="mobile-nav-heading">
+            <strong>Olá! Boas compras.</strong>
+            <button type="button" className="plain-icon" aria-label="Fechar menu" onClick={() => setMenuOpen(false)}>
+              <Icon name="close" size={20} />
+            </button>
+          </div>
           <a className={!isCatalog && !productId && routePath === '/' ? 'active' : ''} href="/" onClick={(event) => handleNavigate(event, '/')}>Home</a>
           <a className={isCatalog && route !== '/products?categoria=Todos' && route !== '/produtos?categoria=Todos' ? 'active' : ''} href="/products" onClick={(event) => handleNavigate(event, '/products')}>Produtos</a>
           <a className={route === '/products?categoria=Todos' || route === '/produtos?categoria=Todos' ? 'active' : ''} href="/products?categoria=Todos" onClick={(event) => handleNavigate(event, '/products?categoria=Todos')}>Categorias</a>
@@ -148,6 +155,16 @@ export default function Header({
             setNotice('Entre em contato para consultar seus pedidos.')
             setMenuOpen(false)
           }}>Meus Pedidos</a>
+          <div className="mobile-nav-account">
+            <button type="button" onClick={() => {
+              setNotice('Cadastro demonstrativo: autenticação não configurada.')
+              setMenuOpen(false)
+            }}>Cadastre-se</button>
+            <button type="button" onClick={() => {
+              setNotice('Login demonstrativo: autenticação não configurada.')
+              setMenuOpen(false)
+            }}>Entrar</button>
+          </div>
         </nav>
       </header>
     </>

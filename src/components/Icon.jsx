@@ -38,5 +38,20 @@ export default function Icon({ name, size = 22 }) {
   if (name === 'return') {
     return <svg {...common}><path d="M4 10a8 8 0 1 1 1.7 7.9M4 4v6h6" /></svg>
   }
+  if (name === 'filter') {
+    return <svg {...common}><path d="M4 5h16l-6.3 7.4v5.1l-3.4 1.8v-6.9L4 5Z" /></svg>
+  }
+  if (name === 'shoe') {
+    return <svg {...common}><path d="M3 15.5c2.4-.2 4.1-1.3 5.2-3.4l1.2-2.2 3.2 2.8c1.6 1.4 3.5 2.1 5.6 2.1H21v4H3v-3.3Z" /><path d="m8.2 12.1 2.3 1M10 10.1l2.2 1.5" /></svg>
+  }
+  if (name === 'shirt') {
+    return <svg {...common}><path d="m8 4 4 2 4-2 4 3-2.2 3-2-1V20H8.2V9l-2 1L4 7l4-3Z" /></svg>
+  }
+  if (name === 'backpack') {
+    return <svg {...common}><path d="M8 6V5a4 4 0 0 1 8 0v1M6 8a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v12H6V8Z" /><path d="M9 10h6v4H9zM4 11h2m12 0h2" /></svg>
+  }
+  if (name === 'sparkle') {
+    return <svg {...common}><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3ZM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z" /></svg>
+  }
   return <svg {...common}><path d="M12 3v18M3 12h18" /></svg>
 }

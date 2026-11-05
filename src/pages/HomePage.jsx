@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { products } from '../data/products'
 import Icon from '../components/Icon.jsx'
 import Gallery from '../components/Gallery.jsx'
 import ProductListing from '../components/ProductListing.jsx'
@@ -16,19 +15,23 @@ const heroSlides = [
   { image: '/home-slide-8.jpeg', label: 'Tênis de corrida vermelho' },
 ]
 
-export default function HomePage({ navigate, collectionLink, addToCart }) {
-  const featured = products
+export default function HomePage({ products, navigate, collectionLink, addToCart }) {
+  const localProducts = products.filter((product) => product.source !== 'api')
+  const featured = [
+    ...localProducts.slice(0, 4),
+    ...products.filter((product) => product.source === 'api').slice(0, 4),
+  ]
   const [heroSlide, setHeroSlide] = useState(0)
 
   return (
     <>
       <section className="hero-section">
         <div className="hero-copy">
-          <span className="eyebrow">ESTILO QUE ACOMPANHA VOCÊ</span>
+          <span className="eyebrow">NOVIDADES PARA IR MAIS LONGE</span>
           <h1>Seu próximo<br /><span>passo começa aqui.</span></h1>
-          <p>Encontre o equilíbrio perfeito entre conforto, atitude e o seu jeito de viver.</p>
+          <p>Uma seleção especial para renovar o seu estilo com conforto e personalidade.</p>
           <a className="button button-primary" href="/produtos" onClick={(event) => navigate(event, '/produtos')}>
-            Explorar coleção <Icon name="arrow" size={18} />
+            Ver ofertas <Icon name="arrow" size={18} />
           </a>
           <div className="hero-proof">
             <div className="proof-avatars" aria-hidden="true"><span>J</span><span>M</span><span>A</span></div>
@@ -74,6 +77,29 @@ export default function HomePage({ navigate, collectionLink, addToCart }) {
           <CategoryTile title="Acessórios" note="Complete seu estilo" image="/collection-3.png" href={collectionLink('Acessórios')} navigate={navigate} />
         </div>
       </Section>
+
+      <section className="quick-categories section-wrap" aria-label="Explore por categoria">
+        <div className="quick-categories-heading">
+          <h2>Explore por categoria</h2>
+          <a href="/produtos" onClick={(event) => navigate(event, '/produtos')}>Ver todas <Icon name="arrow" size={16} /></a>
+        </div>
+        <div className="quick-category-list">
+          {[
+            { title: 'Tênis', icon: 'shoe' },
+            { title: 'Camisetas', icon: 'shirt' },
+            { title: 'Casual', icon: 'sparkle' },
+            { title: 'Acessórios', icon: 'backpack' },
+          ].map(({ title, icon }) => {
+            const href = collectionLink(title)
+            return (
+              <a key={title} className="quick-category" href={href} onClick={(event) => navigate(event, href)}>
+                <span><Icon name={icon} size={27} /></span>
+                <strong>{title}</strong>
+              </a>
+            )
+          })}
+        </div>
+      </section>
 
       <Section
         title="Produtos em alta"

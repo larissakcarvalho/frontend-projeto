@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { products as localProducts } from './data/products'
+import { categories as localCategories, products as localProducts } from './data/products'
 import { fetchCatalogProducts } from './services/productApi'
 import CatalogPage from './pages/CatalogPage.jsx'
 import Footer from './components/Footer.jsx'
@@ -12,6 +12,7 @@ import './App.css'
 function App() {
   const [route, setRoute] = useState(() => window.location.pathname + window.location.search)
   const [products, setProducts] = useState(localProducts)
+  const [categories, setCategories] = useState(localCategories)
   const [catalogState, setCatalogState] = useState({ status: 'loading' })
   const [catalogAttempt, setCatalogAttempt] = useState(0)
   const [search, setSearch] = useState(() => {
@@ -31,13 +32,15 @@ function App() {
     }, 12000)
 
     fetchCatalogProducts(controller.signal)
-      .then(({ products: apiProducts, exchangeDate }) => {
-        setProducts([...localProducts, ...apiProducts])
-        setCatalogState({ status: 'api', count: apiProducts.length, exchangeDate })
+      .then(({ products: apiProducts, categories: apiCategories }) => {
+        setProducts(apiProducts)
+        setCategories(apiCategories.length ? ['Todos', ...apiCategories] : localCategories)
+        setCatalogState({ status: 'api', count: apiProducts.length })
       })
       .catch((error) => {
         if (controller.signal.aborted && !timedOut) return
         setProducts(localProducts)
+        setCategories(localCategories)
         setCatalogState({
           status: 'fallback',
           message: timedOut ? 'A conexão com o catálogo excedeu o tempo limite.' : error.message,
@@ -145,6 +148,7 @@ function App() {
   const page = isCatalog ? (
     <CatalogPage
       products={products}
+      categories={categories}
       selectedCategory={selectedCategory}
       searchTerm={searchTerm}
       navigate={navigate}
@@ -182,7 +186,7 @@ function App() {
         {catalogState.status === 'loading' && <span>Conectando ao catálogo de produtos...</span>}
         {catalogState.status === 'api' && (
           <span>
-            Catálogo atualizado: {catalogState.count} produtos da API. Preços convertidos para reais pela cotação de {catalogState.exchangeDate}.
+            Catálogo conectado à API: {catalogState.count} produtos.
           </span>
         )}
         {catalogState.status === 'fallback' && (

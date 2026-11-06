@@ -20,10 +20,12 @@ export default function BuyBox({
       <span className="eyebrow">{product.category} / {product.type}</span>
       <h1>{product.name}</h1>
       <p className="product-sku">REF: DS-{product.id.slice(-6).toUpperCase()}</p>
-      <div className="rating-line">
-        <span className="rating-score"><span>{product.rating.toFixed(1)}</span><img src={starIcon} alt="" /></span>
-        {product.reviews != null && <span>({product.reviews} avaliações)</span>}
-      </div>
+      {Number.isFinite(product.rating) && (
+        <div className="rating-line">
+          <span className="rating-score"><span>{product.rating.toFixed(1)}</span><img src={starIcon} alt="" /></span>
+          {product.reviews != null && <span>({product.reviews} avaliações)</span>}
+        </div>
+      )}
       <p className="detail-description">{product.description}</p>
       <div className="detail-price">
         {product.oldPrice > 0 && <del>{formatPrice(product.oldPrice)}</del>}

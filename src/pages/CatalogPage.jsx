@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { categories } from '../data/products'
 import FilterGroup from '../components/FilterGroup.jsx'
 import Icon from '../components/Icon.jsx'
 import ProductListing from '../components/ProductListing.jsx'
@@ -11,7 +10,7 @@ const priceOptions = [
   { label: 'Acima de R$ 400', value: '400+', min: 400, max: Infinity, minExclusive: true },
 ]
 
-export default function CatalogPage({ products, selectedCategory, searchTerm, navigate, collectionLink }) {
+export default function CatalogPage({ products, categories, selectedCategory, searchTerm, navigate, collectionLink }) {
   const [sortBy, setSortBy] = useState('relevance')
   const [mobileFilters, setMobileFilters] = useState(false)
   const [priceRanges, setPriceRanges] = useState([])

@@ -15,9 +15,11 @@ export default function ProductCard({ product, navigate, addToCart }) {
       <div className="product-card-info">
         <span className="product-category">{product.category}</span>
         <a href={productPath} onClick={(event) => navigate(event, productPath)} className="product-name">{product.name}</a>
-        <div className="product-card-rating" aria-label={`Avaliação ${product.rating.toFixed(1)} de 5`}>
-          <span aria-hidden="true">★★★★★</span> {product.rating.toFixed(1)} {product.reviews != null && <small>({product.reviews})</small>}
-        </div>
+        {Number.isFinite(product.rating) && (
+          <div className="product-card-rating" aria-label={`Avaliação ${product.rating.toFixed(1)} de 5`}>
+            <span aria-hidden="true">★★★★★</span> {product.rating.toFixed(1)} {product.reviews != null && <small>({product.reviews})</small>}
+          </div>
+        )}
         <div className="card-price">
           {product.oldPrice > 0 && <del>{formatPrice(product.oldPrice)}</del>}
           <strong>{formatPrice(product.price)}</strong>

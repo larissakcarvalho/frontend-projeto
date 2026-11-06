@@ -53,9 +53,9 @@ Loja virtual demonstrativa desenvolvida com React e Vite, com layout adaptável 
 
 ## Integração com API
 
-O catálogo consulta a [DummyJSON Products API](https://dummyjson.com/docs/products) para carregar produtos e a [Frankfurter API](https://frankfurter.dev/) para obter a cotação atual de USD para BRL. Os preços da API são convertidos para reais; a data da cotação é exibida na loja. A integração é somente de leitura e não realiza pedidos.
+O catálogo consulta a API própria em `https://store-backend-projeto.vercel.app`, listando produtos e categorias pelos endpoints públicos `/v1/product/search` e `/v1/category/search`. Os preços são exibidos em reais conforme cadastrados no backend, e opções e imagens dos produtos são carregadas da API. No desenvolvimento local, o Vite encaminha as chamadas à API para evitar bloqueios de CORS. Para apontar a aplicação a outro ambiente, defina `VITE_API_URL` antes de iniciar ou compilar o Vite.
 
-Os produtos locais de `src/data/products.js` permanecem no catálogo junto aos produtos remotos. Se uma das APIs estiver indisponível, a loja informa o problema e continua com os produtos locais, oferecendo uma opção para tentar novamente. Imagens remotas e fontes tipográficas também dependem de conexão com a internet.
+Se a API estiver indisponível, a loja informa o problema e continua com os produtos locais de demonstração de `src/data/products.js`, oferecendo uma opção para tentar novamente. Imagens remotas e fontes tipográficas também dependem de conexão com a internet. A integração é somente de leitura e não realiza pedidos.
 
 A aplicação não integra autenticação ou processamento real de pagamentos; cadastro, login e compra são demonstrativos.
 
@@ -66,6 +66,10 @@ A aplicação não integra autenticação ou processamento real de pagamentos; c
 - `src/data/`: dados locais e funções auxiliares do catálogo.
 - `src/services/`: integração com APIs externas e adaptação dos dados recebidos.
 - `public/` e `src/assets/`: ícones e imagens utilizados pela aplicação.
+
+## Backend
+
+A API REST com Express, MySQL, Sequelize, migrations, autenticação JWT e documentação Swagger fica em [`backend/`](backend/README.md). O frontend usa os endpoints públicos de leitura da API e continua executável sem ela graças ao catálogo local de demonstração.
 
 ## Verificações
 

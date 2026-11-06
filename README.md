@@ -5,6 +5,7 @@ Loja virtual demonstrativa desenvolvida com React e Vite, com layout adaptável 
 ## Links do projeto
 
 - **Aplicação publicada:** [frontend-projeto-scne.vercel.app](https://frontend-projeto-scne.vercel.app)
+- **API publicada:** [store-backend-projeto.vercel.app](https://store-backend-projeto.vercel.app)
 - **Repositório:** [larissakcarvalho/frontend-projeto](https://github.com/larissakcarvalho/frontend-projeto)
 - **Pull request da entrega:** [PR #1 — Implementa aplicação Digital Store em React](https://github.com/larissakcarvalho/frontend-projeto/pull/1) — mesclado na branch `main`.
 - **Ajuste de rotas para publicação:** [PR #3](https://github.com/larissakcarvalho/frontend-projeto/pull/3) — mesclado na branch `main`.
@@ -53,11 +54,22 @@ Loja virtual demonstrativa desenvolvida com React e Vite, com layout adaptável 
 
 ## Integração com API
 
-O catálogo consulta a API própria em `https://store-backend-projeto.vercel.app`, listando produtos e categorias pelos endpoints públicos `/v1/product/search` e `/v1/category/search`. Os preços são exibidos em reais conforme cadastrados no backend, e opções e imagens dos produtos são carregadas da API. No desenvolvimento local, o Vite encaminha as chamadas à API para evitar bloqueios de CORS. Para apontar a aplicação a outro ambiente, defina `VITE_API_URL` antes de iniciar ou compilar o Vite.
+O catálogo consulta a API própria em `https://store-backend-projeto.vercel.app`:
+
+- `GET /v1/product/search?limit=-1` carrega todos os produtos habilitados.
+- `GET /v1/category/search?limit=-1` carrega as categorias.
+
+O adaptador em `src/services/productApi.js` converte a resposta do backend para o formato usado pelos componentes da loja: as categorias são resolvidas pelos IDs; `price` e `price_with_discount` alimentam os preços atual e original; as imagens e opções são extraídas das associações de produto. Caminhos de imagem servidos pelo backend em `/media/` são convertidos em URLs absolutas. Busca por texto, categoria, preço e ordenação são aplicadas no cliente aos dados carregados.
+
+Em desenvolvimento, o Vite encaminha `/api` para a API publicada para evitar bloqueios de CORS. Para apontar a aplicação a outro ambiente, defina `VITE_API_URL` antes de iniciar ou compilar o Vite (por exemplo, `http://localhost:3000`). Sem essa configuração, a compilação de produção utiliza `https://store-backend-projeto.vercel.app`.
 
 Se a API estiver indisponível, a loja informa o problema e continua com os produtos locais de demonstração de `src/data/products.js`, oferecendo uma opção para tentar novamente. Imagens remotas e fontes tipográficas também dependem de conexão com a internet. A integração é somente de leitura e não realiza pedidos.
 
 A aplicação não integra autenticação ou processamento real de pagamentos; cadastro, login e compra são demonstrativos.
+
+### Publicação e validação da integração
+
+A integração foi publicada na branch `main` em 6 de novembro de 2026 no commit [`d13cade`](https://github.com/larissakcarvalho/frontend-projeto/commit/d13cade863bf4066a2b601e4aea44f70b2d5acf3). A compilação e o lint foram executados localmente, e o site publicado foi verificado carregando os oito produtos do catálogo do backend, inclusive a página de detalhes de um produto. O catálogo de demonstração continua disponível como fallback quando a API não responde.
 
 ## Estrutura do código
 
